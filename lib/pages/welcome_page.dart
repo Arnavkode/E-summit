@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../utils/template.dart';
+import '../utils/Datas.dart';
 
 class welcome_page extends StatefulWidget {
   const welcome_page({super.key});
@@ -38,38 +38,48 @@ class _welcome_pageState extends State<welcome_page> {
                     
               children: [
                 SizedBox(height: 0.75*ScreenHeight(context),),
-                Container(
-                  alignment: Alignment.center,
-                  height: 50,
-                  width: 250 ,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(13)),
-                    color: Color.fromRGBO(39, 93, 173, 1),
-                  ),
-                  
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      color: Colors.white,
-                      fontSize: 21
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, "/login");
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    width: 250 ,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(13)),
+                      color: Color.fromRGBO(39, 93, 173, 1),
+                    ),
+                    
+                    child: Text(
+                      "Log in",
+                      style: TextStyle(
+                        fontFamily: "Inter",
+                        color: Colors.white,
+                        fontSize: 21
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 10,),
-                Text("Create a new account.",
-                
-                style: basic()),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, "/signup");
+                  },
+                  child: Text("Create a new account.",
+                  
+                  style: basic()),
+                ),
 
                 Expanded(
                   child: Align(
+                    alignment: Alignment(0, 0*45*ScreenHeight(context)),
                     child: Text("By continuing, you accept Terms & Conditions",
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 10,
                       color: Colors.white
                     ),),
-                    alignment: Alignment(0, 0*45*ScreenHeight(context)),
                     ),
                 )
                     

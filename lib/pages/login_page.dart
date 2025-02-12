@@ -1,8 +1,19 @@
-// ignore_for_file: prefer_const_constructors
+import 'dart:async';
 
+import 'package:e_summit25/main.dart';
+import 'package:e_summit25/pages/account_page.dart';
+import 'package:e_summit25/pages/dashboard.dart';
+import 'package:e_summit25/pages/welcome_page.dart';
+import 'package:e_summit25/services/Auth_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/template.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:e_summit25/utils/Bigbutton.dart';
+import 'package:e_summit25/utils/Entryfield.dart';
+import 'package:e_summit25/utils/Passwordfield.dart';
+import 'package:e_summit25/utils/Datas.dart';
+import 'package:flutter/services.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,167 +23,164 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  String _email = "";
-  String _password = "";
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      print("Email: $_email, Password: $_password");
+  final authservice = Auth();
+ 
+ final _emailController = TextEditingController();
+ final _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+ void login() async{
+
+  final email = _emailController.text;
+  final password = _passwordController.text;
+
+  // attempt login
+  setState(() {
+    _isLoading = true;
+  });
+  try{
+    await authservice.signinwithEmailPassword(email, password);
+    Fluttertoast.showToast(msg: "Login successful");
+    authservice.fetchUserInfo();
+    Navigator.pushReplacementNamed(context, '/dashboard');
+  }
+  catch(e){
+    if(mounted){
+      Fluttertoast.showToast(msg: e.toString());
     }
+  }
+
+  setState(() {
+    _isLoading = false;
+  });
+
+ }
+
+ 
+
+
+
+  
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        // Background Gradient
-        Container(
-          width: ScreenWidth(context),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromRGBO(39, 93, 173, 1),
-                Color.fromRGBO(18, 18, 18, 1),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment(0, -0.5),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Stack(
+        children: [
+          Container(
+            width: ScreenWidth(context),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(39, 93, 173, 1),
+                  Color.fromRGBO(18, 18, 18, 1)
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment(0, -0.5),
+              ),
             ),
           ),
-        ),
-
-        // Card Container with Form
-        Positioned(
-          bottom: 0.1 * ScreenHeight(context),
-          left: 0.1 * ScreenWidth(context),
-          child: Container(
-            width: 0.8 * ScreenWidth(context),
-            height: 0.7 * ScreenHeight(context),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.2),
-                width: 1.0,
+          Positioned(
+            bottom: 0.1 * ScreenHeight(context),
+            left: 0.1 * ScreenWidth(context),
+            child: Container(
+              width: 0.8 * ScreenWidth(context),
+              height: 0.7 * ScreenHeight(context),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                    color: Colors.white.withOpacity(0.2), width: 1.0),
+                gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color(0xffd3c0c0).withOpacity(0.15),
+                    Color(0xff222823).withOpacity(0.15)
+                  ],
+                ),
               ),
-              gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: [
-                  Color(0xffd3c0c0).withOpacity(0.15),
-                  Color(0xff222823).withOpacity(0.15)
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(0.05 * ScreenWidth(context)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 0.1 * ScreenHeight(context)),
-
-                  Text(
-                    "Email",
-                    style: TextStyle(
-                      fontFamily: "Inter-reg",
-                      fontSize: 22,
-                      color: Colors.white,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-
-                  // Form Section
-                  Container(
-                    padding: EdgeInsets.all(20),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10,
-                          spreadRadius: 2,
+              child: Padding(
+                padding: EdgeInsets.all(0.05 * ScreenWidth(context)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 0.07 * ScreenHeight(context),
                         ),
-                      ],
-                    ),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          // Email Field
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: "Email",
-                              border: OutlineInputBorder(),
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) =>
-                                value!.isEmpty ? "Enter your email" : null,
-                            onSaved: (value) => _email = value!,
+                          TextSpan(
+                            text: "Wel",
+                            style: TextStyle(color: Colors.white),
                           ),
-                          SizedBox(height: 15),
-
-                          // Password Field
-                          TextFormField(
-                            decoration: InputDecoration(
-                              labelText: "Password",
-                              border: OutlineInputBorder(),
-                            ),
-                            obscureText: true,
-                            validator: (value) =>
-                                value!.length < 6 ? "Password too short" : null,
-                            onSaved: (value) => _password = value!,
-                          ),
-                          SizedBox(height: 20),
-
-                          // Submit Button
-                          ElevatedButton(
-                            onPressed: _submitForm,
-                            child: Text("Login"),
+                          TextSpan(
+                            text: "come",
+                            style: TextStyle(color: Color(0xFF275DAD)),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    SizedBox(height: 0.08 * ScreenHeight(context)),
+                    const Text("Email",
+                        style: TextStyle(
+                            fontFamily: "Inter-reg",
+                            fontSize: 22,
+                            color: Colors.white,
+                            decoration: TextDecoration.none)),
+                    const SizedBox(height: 8),
+                    EntryField(
+                        hintText: "Enter your email",
+                        controller: _emailController),
+                    SizedBox(height: 0.02 * ScreenHeight(context)),
+                    const Text("Password",
+                        style: TextStyle(
+                            fontFamily: "Inter-reg",
+                            fontSize: 22,
+                            color: Colors.white,
+                            decoration: TextDecoration.none
+                            )),
+                    const SizedBox(height: 8),
+                    PasswordField(
+                        hintText: "Enter password",
+                        controller: _passwordController),
+
+                      // TextButton(onPressed: (){
+                      //   Navigator.pushNamed(context, '/reset');
+                      // }, child: const Text("Forgot password?", style: TextStyle(color: Colors.blue, fontSize: 16),)),
+                      
+
+
+
+                    const Spacer(),
+                    Align(alignment:Alignment.center , child: Bigbutton(label: "Sign in", onTap: login))
+                    
+              ],
             ),
           ),
-        ),
-
-        // Welcome Text
-        Padding(
-          padding: EdgeInsets.only(left: 0.03 * ScreenHeight(context)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 0.16 * ScreenHeight(context)),
-              Text(
-                "Welcome Back!",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 40,
-                  fontFamily: "Inter",
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                ),
-              ),
-            ],
+          // Positioned(
+          //     top: 0,
+          //     right: 0,
+          //     left: 0,
+          //     child: AppBar(backgroundColor: Colors.transparent)
+          //     ),
+            )
           ),
-        ),
-
-        // Transparent AppBar
-        Positioned(
-          top: 0,
-          right: 0,
-          left: 0,
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-          ),
-        ),
-      ],
+          if(_isLoading)
+            const Center(child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF275DAD)),
+            ))
+        ],
+      ),
     );
   }
 }
