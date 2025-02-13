@@ -16,20 +16,22 @@ import 'package:e_summit25/pages/signup_page.dart';
 import 'package:e_summit25/pages/splash_screen.dart';
 import 'package:e_summit25/pages/welcome_page.dart';
 import 'package:e_summit25/pages/ytconnect.dart';
+import 'package:e_summit25/secrets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'secrets.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-    anonKey:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB6Y3hvYmhlYm9taXFuZXRqbnlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg4NTAzMTcsImV4cCI6MjA1NDQyNjMxN30.H__ZEDMKPc_oZY2QcnnO8-bTTtMfrEzE-VsZHKJpxn8",
-    url: "https://pzcxobhebomiqnetjnys.supabase.co",
+    anonKey: Supabasekeys().anon_key,
+     url: Supabasekeys().url,
   );
   await Hive.initFlutter();
   await Hive.openBox('userBox');

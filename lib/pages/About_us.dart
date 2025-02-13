@@ -1,17 +1,17 @@
 import 'package:e_summit25/utils/Datas.dart';
 import 'package:flutter/material.dart';
 
-class YTconnect extends StatefulWidget {
-  const YTconnect({super.key});
+class AboutUs extends StatefulWidget {
+  const AboutUs({super.key});
 
   @override
-  State<YTconnect> createState() => _YTconnectState();
+  State<AboutUs> createState() => _AboutUsState();
 }
 
-class _YTconnectState extends State<YTconnect> {
+class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
-    var _isLoading = false;
+    var _isLoading= false;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Stack(
@@ -36,9 +36,20 @@ class _YTconnectState extends State<YTconnect> {
             height: ScreenHeight(context) * 0.28, // 50% of the screen height
             child: Opacity(
               opacity: 0.8,
-              child: Image.asset(
-                'lib/assets/images/unwind.png', // Replace with your image
-                fit: BoxFit.cover,
+              child: ClipOval(
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 4.0,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset(
+                    'lib/assets/images/unwind.png', // Replace with your image
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ),
@@ -68,16 +79,16 @@ class _YTconnectState extends State<YTconnect> {
                   children: [
                    
                         Text(
-                          "YouTube",
+                          "About",
                           style: TextStyle(
-                              fontSize: 0.15 * ScreenWidth(context),
+                              fontSize: 0.11 * ScreenWidth(context),
                               fontFamily: "Inter",
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               decoration: TextDecoration.none),
                         ),
                         Text(
-                          "connect",
+                          "Us",
                           style: TextStyle(
                               fontSize: 0.15 * ScreenWidth(context),
                               fontFamily: "Inter",
@@ -88,12 +99,12 @@ class _YTconnectState extends State<YTconnect> {
                      
                     SizedBox(height: 0.01 * ScreenHeight(context)),
                     Text(
-                      "Venue : OAT",
+                      "Venue : LT-101",
                       style: basic(),
                     ),
                     SizedBox(height: 0.005 * ScreenHeight(context)),
                     Text(
-                      "Time : 5 P.M.",
+                      "Time : 11 A.M.",
                       style: basic(),
                     ),
                     SizedBox(height: 0.005 * ScreenHeight(context)),

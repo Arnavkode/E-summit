@@ -44,7 +44,7 @@ List<Map<String, String>> speakers = [
   {"image": "lib/assets/images/tanu.png", "title": "Ashish Chandra"},
   {"image": "lib/assets/images/tanu.png", "title": "Aakash Anand"},
   {"image": "lib/assets/images/tanu.png", "title": "Anuv Jain"},
-  
+
 ];
 
 List<Map<String, String>> events = [
@@ -53,15 +53,15 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Opening Ceremony",
-    "date": "12 Feb",
+    "date": "13 Feb",
     "time": "5:30 P.M",
     "venue":"Main Audi",
-    "route" : "/internshipfair"
+    "route" : "/openingcer"
   },
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Internship Fair",
-    "date": "12 Feb",
+    "date": "13 Feb",
     "time": "10:00 A.M",
     "venue":"SBOP Lawns",
     "route" : "/internshipfair"
@@ -69,34 +69,34 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Biz Conclave",
-    "date": "12 Feb",
+    "date": "13 Feb",
     "time": "11:00 A.M",
     "venue":"Main Audi",
-    "route" : "/internshipfair"
+    "route" : "/bizconclave"
   },
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Youtube Connect",
-    "date": "12 Feb",
+    "date": "13 Feb",
     "time": "12:30 P.M",
     "venue":"Main Audi",
-    "route" : "/internshipfair"
+    "route" : "/youtubeconnect"
   },
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Networking Carnival",
-    "date": "12 Feb",
+    "date": "13 Feb",
     "time": "4:00 P.M",
     "venue":"SBOP Lawns",
-    "route" : "/internshipfair"
+    "route" : "/networking"
   },
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Unwind",
-    "date": "12 Feb",
+    "date": "13 Feb",
     "time": "5:00 P.M",
     "venue":"OAT",
-    "route" : "/internshipfair"
+    "route" : "/unwind"
   },
 
 
