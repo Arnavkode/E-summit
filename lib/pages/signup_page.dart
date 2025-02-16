@@ -31,6 +31,30 @@ class _SignupPageState extends State<SignupPage> {
   final _passwordcontroller = TextEditingController();
   final _confirmpasswordcontroller = TextEditingController();
   final _rollnocontroller = TextEditingController();
+  String? _validatePassword(String value) {
+    if (value.length < 6 || value.length > 12) {
+      return "Password must be 6-12 characters";
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return "At least one uppercase letter";
+    }
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return "At least one number";
+    }
+
+    return null; // No errors
+  }
+
+  String? _validateRollNumber(String value) {
+    if (value.length != 9) {
+      return "Invalid Roll Number";
+    }
+    return null; // No errors
+  }
+
+  Future<bool> checkUserExists(String email) {
+    return authservice.checkUserExists(email);
+  }
 
   void signup() async {
     final name = _namecontroller.text.trim();
@@ -40,7 +64,12 @@ class _SignupPageState extends State<SignupPage> {
     final confirmpassword = _confirmpasswordcontroller.text.trim();
     final rollno = _rollnocontroller.text.trim();
 
-    if (name.isEmpty || number.isEmpty || email.isEmpty || password.isEmpty || confirmpassword.isEmpty || rollno.isEmpty) {
+    if (name.isEmpty ||
+        number.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmpassword.isEmpty ||
+        rollno.isEmpty) {
       Fluttertoast.showToast(msg: "Please fill all the fields");
       return;
     }
@@ -50,11 +79,32 @@ class _SignupPageState extends State<SignupPage> {
       return;
     }
 
+    if (_validatePassword(password) != null) {
+      Fluttertoast.showToast(msg: "Password requirements do not match");
+      return;
+    }
+
+    if (_validateRollNumber(rollno) != null) {
+      Fluttertoast.showToast(msg: "Invalid Roll number");
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
 
     try {
+      bool userExists = false;
+      userExists = await checkUserExists(email);
+      if (userExists == true) {
+        Fluttertoast.showToast(
+            msg: "An account with this email already exists");
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+
       await authservice.signupwithEmailPassword(email, password);
       Fluttertoast.showToast(msg: "OTP sent successfully");
       userEmail = email;
@@ -105,7 +155,8 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          FocusScope.of(context).unfocus(); // Hide keyboard when tapping outside
+          FocusScope.of(context)
+              .unfocus(); // Hide keyboard when tapping outside
         },
         child: SingleChildScrollView(
           controller: _scrollController,
@@ -122,7 +173,8 @@ class _SignupPageState extends State<SignupPage> {
                 end: Alignment(0, -0.5),
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 0.1 * ScreenWidth(context)),
+            padding:
+                EdgeInsets.symmetric(horizontal: 0.1 * ScreenWidth(context)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -163,7 +215,6 @@ class _SignupPageState extends State<SignupPage> {
                 EntryField(
                   hintText: "Enter Email",
                   controller: _emailcontroller,
-                  
                 ),
                 SizedBox(height: 0.02 * ScreenHeight(context)),
                 BasicText("Password"),
@@ -183,7 +234,7 @@ class _SignupPageState extends State<SignupPage> {
                   alignment: Alignment.bottomCenter,
                   child: Bigbutton(label: "Get OTP", onTap: signup),
                 ),
-                if (_isLoading = true)
+                if (_isLoading == true)
                   const Center(
                     child: CircularProgressIndicator(
                       color: Color(0xFF275DAD),

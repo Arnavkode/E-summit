@@ -35,63 +35,65 @@ class _PasswordFieldState extends State<PasswordField> {
     return null; // No errors
   }
 
+  // Method to check if the password is valid
+  bool isPasswordValid() {
+    final password = widget.controller?.text ?? '';
+    return _validatePassword(password) == null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
-    
       color: Colors.transparent,
-  child: IntrinsicHeight(  // Auto-adjusts height based on content
-    child: Padding(
-      padding: EdgeInsets.only(right: 0.075*ScreenWidth(context)),
-      child: Column(
-        children: [
-          TextField(
-            
-            controller: widget.controller,
-            obscureText: _obscureText,
-            keyboardType: TextInputType.text,
-            onChanged: (value) {
-              setState(() {
-                _errorText = _validatePassword(value);
-              });
-            },
-            decoration: InputDecoration(
-              
-              hintText: widget.hintText,
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.white, width: 1),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.grey, width: 1),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.blue, width: 2),
-              ),
-              errorText: _errorText,
-              
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: Colors.black,
-                ),
-                onPressed: () {
+      child: IntrinsicHeight(  // Auto-adjusts height based on content
+        child: Padding(
+          padding: EdgeInsets.only(right: 0.075 * ScreenWidth(context)),
+          child: Column(
+            children: [
+              TextField(
+                controller: widget.controller,
+                obscureText: _obscureText,
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
                   setState(() {
-                    _obscureText = !_obscureText;
+                    _errorText = _validatePassword(value);
                   });
                 },
+                decoration: InputDecoration(
+                  hintText: widget.hintText,
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.white, width: 1),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Colors.blue, width: 2),
+                  ),
+                  errorText: _errorText,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.black,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
+                ),
+                style: const TextStyle(color: Colors.black, fontFamily: "Inter-r", fontSize: 16),
               ),
-            ),
-            style: const TextStyle(color: Colors.black, fontFamily: "Inter-r", fontSize: 16),
+            ],
           ),
-        ],
+        ),
       ),
-    ),
-  ),
-);
+    );
   }
 }

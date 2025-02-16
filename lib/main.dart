@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:e_summit25/pages/About_us.dart';
 import 'package:e_summit25/pages/Bizconclave.dart';
 import 'package:e_summit25/pages/IF.dart';
 import 'package:e_summit25/pages/Networkingcarnival.dart';
@@ -125,7 +126,8 @@ class _MyAppState extends State<MyApp> {
         '/youtubeconnect' : (context) => YTconnect(),
         '/openingcer' : (context) => OpeningCeremony(),
         '/networking' : (context) => Networkingcarnival(),
-        '/bizconclave' : (context) => Bizconclave()
+        '/bizconclave' : (context) => Bizconclave(),
+        '/about' : (context) => AboutUs(),
       },
       debugShowCheckedModeBanner: false,
       // home:  welcome_page()

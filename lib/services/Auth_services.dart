@@ -195,7 +195,26 @@ class Auth {
 
     return response != null;
   }
+
+
+
+
+
+
+   Future<bool> checkUserExists(String email) async {
+    final response = await _supabase
+        .from('users')
+        .select('id')
+        .eq('email', email).maybeSingle();
+
+    if(response != null){
+      return true;
+    }
+    return false;
+    
+  }
 }
+
 
 
   

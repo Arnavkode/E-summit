@@ -22,12 +22,11 @@ class Profile {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final authservice = Auth();
+  bool _isLoading = false;
+  Map<String, dynamic>? userInfo;
 
-final authservice = Auth();
-bool _isLoading = false;
-Map<String, dynamic>? userInfo;
-
-void deleteAccount() async {
+  void deleteAccount() async {
     setState(() {
       _isLoading = true;
     });
@@ -45,15 +44,12 @@ void deleteAccount() async {
     }
   }
 
-
-    @override
-    void initState() {
+  @override
+  void initState() {
     super.initState();
     _loadUserInfo();
   }
- 
 
-  
   void _loadUserInfo() async {
     setState(() {
       _isLoading = true;
@@ -86,205 +82,216 @@ void deleteAccount() async {
     }
   }
 
-
-  
-  
-  
-  
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Stack(children: [
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Stack(
+        children: [
           Container(
             width: ScreenWidth(context),
+            height: ScreenHeight(context),
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(39, 93, 173, 1),
-                  Color.fromRGBO(18, 18, 18, 1)
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment(0, -0.5),
+              image: DecorationImage(
+                image: AssetImage("lib/assets/images/UPF.jpg"), // Replace with your placeholder image path
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          Container(
-            width: 412,
-            height: 917,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Color(0xFF121212)),
-            child: Stack(
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Stack(
               children: [
-                Positioned(
-                  left: -0.07 * ScreenHeight(context),
-                  top: -0.55 * ScreenWidth(context),
-                  child: Container(
-                    width: 0.6 * ScreenHeight(context),
-                    height: 0.6 * ScreenHeight(context),
-                    decoration: ShapeDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment(0.00, -1.00),
-                        end: Alignment(0, 1),
-                        colors: [Color(0x7F275DAD), Color(0xFF5777A6)],
-                      ),
-                      shape: OvalBorder(),
+                Container(
+                  width: ScreenWidth(context),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(39, 93, 173, 0.5), // Adjust opacity
+                        Color.fromRGBO(18, 18, 18, 0.3) // Adjust opacity
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment(0, -0.5),
                     ),
                   ),
                 ),
-                Align(
-                    alignment: Alignment(0, -0.5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 4),
-                      ),
-                      child: CircleAvatar(
-                        radius: 90,
-                        backgroundImage:
-                            AssetImage('lib/assets/images/tanu.png'),
-                      ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: 0.1 * ScreenWidth(context),
-                      top: 0.45 * ScreenHeight(context)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                Container(
+                  width: 412,
+                  height: 917,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF121212).withOpacity(0.7), // Adjust opacity
+                  ),
+                  child: Stack(
                     children: [
-                      Text(
-                        "Name",
-                        style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 28,
-                            color: Colors.white,
-                            decoration: TextDecoration.none),
-                      ),
-                      SizedBox(
-                        height: 0.01 * ScreenHeight(context),
-                      ),
-                      Container(
-                        height: 0.075 * ScreenHeight(context),
-                        width: 0.8 * ScreenWidth(context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 1), // White border with 2px width
-                        ),
-
-                        child: Padding(
-                          padding: EdgeInsets.only(left:0.02*ScreenHeight(context)),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(userName?? "No name", 
-                            style: TextStyle(
-                              fontFamily: "Inter-r",
-                              decoration: TextDecoration.none,
-                              color: Colors.white,
-                              fontSize: 0.03*ScreenHeight(context)
-                            ),),
+                      Positioned(
+                        left: -0.07 * ScreenHeight(context),
+                        top: -0.55 * ScreenWidth(context),
+                        child: Container(
+                          width: 0.6 * ScreenHeight(context),
+                          height: 0.6 * ScreenHeight(context),
+                          decoration: ShapeDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment(0.00, -1.00),
+                              end: Alignment(0, 1),
+                              colors: [Color(0x7F275DAD), Color(0xFF5777A6)],
+                            ),
+                            shape: OvalBorder(),
                           ),
-                        ) ,
-                      ),
-                      SizedBox(
-                        height: 0.02 * ScreenHeight(context),
-                      ),
-                      Text(
-                        "Roll no.",
-                        style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 28,
-                            color: Colors.white,
-                            decoration: TextDecoration.none),
-                      ),
-                      SizedBox(
-                        height: 0.01 * ScreenHeight(context),
-                      ),
-                      Container(
-                        height: 0.075 * ScreenHeight(context),
-                        width: 0.8 * ScreenWidth(context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 1), // White border with 2px width
                         ),
-
-                        child: Padding(
-                          padding: EdgeInsets.only(left:0.02*ScreenHeight(context)),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(userRoll?? "No roll number", 
-                            style: TextStyle(
-                              fontFamily: "Inter-r",
-                              decoration: TextDecoration.none,
-                              color: Colors.white,
-                              fontSize: 0.03*ScreenHeight(context)
-                            ),),
+                      ),
+                      Align(
+                        alignment: Alignment(0, -0.5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 4),
                           ),
-                        ) ,
-                      ),
-                      SizedBox(
-                        height: 0.02 * ScreenHeight(context),
-                      ),
-                      Text(
-                        "Phone number",
-                        style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 28,
-                            color: Colors.white,
-                            decoration: TextDecoration.none),
-                      ),
-                      SizedBox(
-                        height: 0.01 * ScreenHeight(context),
-                      ),
-                      Container(
-                        height: 0.075 * ScreenHeight(context),
-                        width: 0.8 * ScreenWidth(context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 1), // White border with 2px width
+                          child: CircleAvatar(
+                            radius: 90,
+                            backgroundImage: AssetImage('lib/assets/images/tanu.png'),
+                          ),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.only(left:0.02*ScreenHeight(context)),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(userPhone?? "No phone number", 
-                            style: TextStyle(
-                              fontFamily: "Inter-r",
-                              decoration: TextDecoration.none,
-                              color: Colors.white,
-                              fontSize: 0.03*ScreenHeight(context)
-                            ),),
-                          ),
-                        ) ,
                       ),
-
-
-                      // Card(
-                      //   color: const Color.fromARGB(255, 219, 53, 41),
-                      //   child: ElevatedButton(
-                      //     onPressed:(){
-                      //       deleteAccount();
-                      //     }
-                      //   , child: Text("Delete Account"
-                        
-                      //   )),
-
-                      // )
-
-                      
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 0.1 * ScreenWidth(context),
+                          top: 0.45 * ScreenHeight(context),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Name",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 28,
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.01 * ScreenHeight(context),
+                            ),
+                            Container(
+                              height: 0.075 * ScreenHeight(context),
+                              width: 0.8 * ScreenWidth(context),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(13),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1,
+                                ), // White border with 2px width
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 0.02 * ScreenHeight(context)),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    userName ?? "No name",
+                                    style: TextStyle(
+                                      fontFamily: "Inter-r",
+                                      decoration: TextDecoration.none,
+                                      color: Colors.white,
+                                      fontSize: 0.03 * ScreenHeight(context),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.02 * ScreenHeight(context),
+                            ),
+                            Text(
+                              "Roll no.",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 28,
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.01 * ScreenHeight(context),
+                            ),
+                            Container(
+                              height: 0.075 * ScreenHeight(context),
+                              width: 0.8 * ScreenWidth(context),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(13),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1,
+                                ), // White border with 2px width
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 0.02 * ScreenHeight(context)),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    userRoll ?? "No roll number",
+                                    style: TextStyle(
+                                      fontFamily: "Inter-r",
+                                      decoration: TextDecoration.none,
+                                      color: Colors.white,
+                                      fontSize: 0.03 * ScreenHeight(context),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.02 * ScreenHeight(context),
+                            ),
+                            Text(
+                              "Phone number",
+                              style: TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 28,
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.01 * ScreenHeight(context),
+                            ),
+                            Container(
+                              height: 0.075 * ScreenHeight(context),
+                              width: 0.8 * ScreenWidth(context),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(13),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 1,
+                                ), // White border with 2px width
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 0.02 * ScreenHeight(context)),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    userPhone ?? "No phone number",
+                                    style: TextStyle(
+                                      fontFamily: "Inter-r",
+                                      decoration: TextDecoration.none,
+                                      color: Colors.white,
+                                      fontSize: 0.03 * ScreenHeight(context),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
-          )
-        ]));
+          ),
+        ],
+      ),
+    );
   }
 }

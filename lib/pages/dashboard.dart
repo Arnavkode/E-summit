@@ -24,8 +24,47 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  bool _isLoading = false;
   
   final authservice = Auth();
+
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfo();
+  }
+
+  void _loadUserInfo() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      var box = Hive.box('userBox');
+      userName = box.get('userName', defaultValue: '');
+      
+
+      // If user info is not available in cache, fetch from server
+      if ((userRoll?.isEmpty ?? true) || (userName?.isEmpty ?? true) || (userPhone?.isEmpty ?? true)) {
+        final data = await authservice.fetchUserInfo();
+        if (data != null) {
+          
+          userName = data['name'] ?? '';
+          
+        }
+      }
+
+      setState(() {});
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
   
 
  
@@ -57,6 +96,8 @@ class _DashboardState extends State<Dashboard> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
+            title: Image.asset("lib/assets/images/logo-04.png", height: 80,),
+            centerTitle: true,
             leading: Builder(
               builder: (context) => IconButton(
                 icon: const Icon(Icons.menu, color: Colors.white),
@@ -65,42 +106,50 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
           drawer: Drawer(
+            backgroundColor: const Color.fromARGB(255, 56, 56, 56),
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
                 DrawerHeader(
-                  decoration: BoxDecoration(color: Color(0xFF275DAD)),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("lib/assets/images/bg.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.person, size: 40, color: Colors.blue),
+                        radius: 49,
+                        backgroundColor: Colors.transparent,
+                        child: Image.asset("lib/assets/images/TVC logo white.png"),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "Hello, $userName !",
+                        "Hello, $userName!",
                         style: TextStyle(fontFamily: "Inter", color: Colors.white, fontSize: 18),
                       ),
                     ],
                   ),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.info_outline_rounded),
-                  title: const Text("Info"),
-                  onTap: () {},
+                  leading: const Icon(Icons.info_outline_rounded, color: Colors.white,),
+                  title: const Text("About TVC", style: TextStyle(color: Colors.white),),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/about');
+                  },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person_2_outlined),
-                  title: Text("Profile"),
+                  leading: Icon(Icons.person_2_outlined, color: Colors.white,),
+                  title: Text("Profile", style: TextStyle(color: Colors.white),),
                   onTap: (){Navigator.pushNamed(context, '/profile');},
 
                 ),
                 Spacer(),
                 ListTile(
-                  leading: Icon(Icons.logout_outlined),
-                  title: Text("Log Out"),
+                  leading: Icon(Icons.logout_outlined, color: Colors.white,),
+                  title: Text("Log Out", style: TextStyle(color: Colors.white),),
                   onTap: () async{
                     await authservice.signOut(context);
                     Hive.box('userBox').put('isLoggedIn', false);

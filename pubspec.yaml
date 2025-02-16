@@ -44,6 +44,8 @@ dependencies:
   hive_flutter: ^1.1.0
   go_router: ^14.8.0
   flutter_dotenv: ^5.2.1
+  flutter_launcher_icons: ^0.14.3
+
   
   
 dev_dependencies:
@@ -74,6 +76,11 @@ flutter:
     - lib/assets/images/unwind.png
     - lib/assets/images/sh.png
     - lib/assets/images/tanu.png
+    - lib/assets/images/TVC logo white.png
+    - lib/assets/images/logo-04.png
+    - lib/assets/images/bg.jpg
+    - lib/assets/images/esummit_app.png
+    - lib/assets/images/UPF.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -103,3 +110,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flutter_launcher_icons:
+  android: true
+ 
+  image_path: "lib/assets/images/esummit_app.png"
+  adaptive_icon_background: "#ffffff"  # Optional (Android only)# Optional (Android only)

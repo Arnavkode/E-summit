@@ -11,7 +11,7 @@ class AboutUs extends StatefulWidget {
 class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
-    var _isLoading= false;
+    var _isLoading = false;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Stack(
@@ -33,21 +33,26 @@ class _AboutUsState extends State<AboutUs> {
             top: 0,
             left: 0,
             right: 0,
-            height: ScreenHeight(context) * 0.28, // 50% of the screen height
+            // height: ScreenHeight(context) * 0.28, // 50% of the screen height
             child: Opacity(
               opacity: 0.8,
-              child: ClipOval(
+              child: Center(
                 child: Container(
+                  width: ScreenWidth(context), // Ensure the container is square
+                  height: ScreenHeight(context) * 0.3,
                   decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.white,
+                      
                       width: 4.0,
                     ),
-                    shape: BoxShape.circle,
                   ),
-                  child: Image.asset(
-                    'lib/assets/images/unwind.png', // Replace with your image
-                    fit: BoxFit.cover,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15), // Half of the container size
+                    child: Image.asset(
+                      'lib/assets/images/unwind.png', // Replace with your image
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -77,16 +82,21 @@ class _AboutUsState extends State<AboutUs> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   
-                        Text(
-                          "About",
-                          style: TextStyle(
-                              fontSize: 0.11 * ScreenWidth(context),
-                              fontFamily: "Inter",
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              decoration: TextDecoration.none),
-                        ),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "About",
+                              style: TextStyle(
+                                  fontSize: 0.11 * ScreenWidth(context),
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none),
+                            ),
+                          
                         Text(
                           "Us",
                           style: TextStyle(
@@ -96,29 +106,37 @@ class _AboutUsState extends State<AboutUs> {
                               color: Color(0xFF275DAD),
                               decoration: TextDecoration.none),
                         ),
-                     
+                        ],
+                        ),
+                        Spacer(),
+                        SizedBox(height: 80,child: Image.asset("lib/assets/images/TVC logo white.png", fit: BoxFit.contain,),)
+                      ],
+                    ),
                     SizedBox(height: 0.01 * ScreenHeight(context)),
-                    Text(
-                      "Venue : LT-101",
-                      style: basic(),
+                     Text(
+                      "The Entrepreneurship Development cell, Thapar Institute of Engineering and Technology, Patiala has been established with an aim to foster and nurture talented young minds with a vision. With India witnessing the rise of start up culture, we encourage and guide everyone who is bitten by the spirit of entrepreneurship.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontFamily: 'Inter-r',
+                        decoration: TextDecoration.none,
+                      ),
+                      softWrap: true,
                     ),
-                    SizedBox(height: 0.005 * ScreenHeight(context)),
+
+                    SizedBox(height: 0.01 * ScreenHeight(context)),
+
                     Text(
-                      "Time : 11 A.M.",
-                      style: basic(),
+                      "EDC aims at developing the spirit of entrepreneurship among the students of Thapar Institute of Engineering and Technology. It is committed to build a strong platform for budding entrepreneurs as a career, as a path to success, as a journey of wisdom.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontFamily: 'Inter-r',
+                        decoration: TextDecoration.none,
+                      ),
+                      softWrap: true,
                     ),
-                    SizedBox(height: 0.005 * ScreenHeight(context)),
                     
-                    GestureDetector(
-                        onTap: () {},
-                        child: Text("Watch Livestream",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.blue,
-                                fontFamily: 'Inter',
-                                decoration: TextDecoration.none))),
-                    SizedBox(height: 0.08 * ScreenHeight(context)),
-                    const Spacer(),
                   ],
                 ),
               ),
@@ -132,6 +150,15 @@ class _AboutUsState extends State<AboutUs> {
             ),
         ],
       ),
-    );;
+    );
+  }
+
+  TextStyle basic() {
+    return TextStyle(
+      fontFamily: "Inter",
+      fontSize: 22,
+      color: Colors.white,
+      decoration: TextDecoration.none,
+    );
   }
 }

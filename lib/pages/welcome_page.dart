@@ -35,9 +35,20 @@ class _welcome_pageState extends State<welcome_page> {
             ),
                     
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
                     
               children: [
-                SizedBox(height: 0.75*ScreenHeight(context),),
+                SizedBox(height: 0.35*ScreenHeight(context),),
+                // Row(
+                  
+                //   children: [
+                //     SizedBox(width: 0.25*ScreenWidth(context),),
+                //     Image.asset("lib/assets/images/TVC logo white.png", height: 50,),
+                //     Text("Thapar Venture Club", style: TextStyle(color: Colors.white),)
+                //   ],
+                // ),
+                Image.asset("lib/assets/images/logo-04.png"),
+                SizedBox(height: 0.15*ScreenHeight(context),),
                 GestureDetector(
                   onTap: (){
                     Navigator.pushNamed(context, "/login");

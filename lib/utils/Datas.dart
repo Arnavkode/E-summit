@@ -53,7 +53,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Opening Ceremony",
-    "date": "13 Feb",
+    "date": "19 Feb",
     "time": "5:30 P.M",
     "venue":"Main Audi",
     "route" : "/openingcer"
@@ -61,7 +61,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Internship Fair",
-    "date": "13 Feb",
+    "date": "19 Feb",
     "time": "10:00 A.M",
     "venue":"SBOP Lawns",
     "route" : "/internshipfair"
@@ -69,7 +69,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Biz Conclave",
-    "date": "13 Feb",
+    "date": "19 Feb",
     "time": "11:00 A.M",
     "venue":"Main Audi",
     "route" : "/bizconclave"
@@ -77,7 +77,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Youtube Connect",
-    "date": "13 Feb",
+    "date": "19 Feb",
     "time": "12:30 P.M",
     "venue":"Main Audi",
     "route" : "/youtubeconnect"
@@ -85,7 +85,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Networking Carnival",
-    "date": "13 Feb",
+    "date": "19 Feb",
     "time": "4:00 P.M",
     "venue":"SBOP Lawns",
     "route" : "/networking"
@@ -93,7 +93,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Unwind",
-    "date": "13 Feb",
+    "date": "19 Feb",
     "time": "5:00 P.M",
     "venue":"OAT",
     "route" : "/unwind"
