@@ -29,6 +29,10 @@ class _LoginPageState extends State<LoginPage> {
  final _emailController = TextEditingController();
  final _passwordController = TextEditingController();
   bool _isLoading = false;
+   Future<bool> checkUserExists(String email) {
+    return authservice.checkUserExists(email);
+  }
+
 
  void login() async{
 
@@ -39,7 +43,16 @@ class _LoginPageState extends State<LoginPage> {
   setState(() {
     _isLoading = true;
   });
-  try{
+  try{bool userExists = false;
+      userExists = await checkUserExists(email);
+      if (userExists == false) {
+        Fluttertoast.showToast(
+            msg: "User does not exist. Please sign up first.");
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
     await authservice.signinwithEmailPassword(email, password);
     Fluttertoast.showToast(msg: "Login successful");
     authservice.fetchUserInfo();

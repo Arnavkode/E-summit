@@ -13,22 +13,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
-
-  
 
   @override
   State<Dashboard> createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
-
   bool _isLoading = false;
-  
-  final authservice = Auth();
 
+  final authservice = Auth();
 
   @override
   void initState() {
@@ -44,15 +39,14 @@ class _DashboardState extends State<Dashboard> {
     try {
       var box = Hive.box('userBox');
       userName = box.get('userName', defaultValue: '');
-      
 
       // If user info is not available in cache, fetch from server
-      if ((userRoll?.isEmpty ?? true) || (userName?.isEmpty ?? true) || (userPhone?.isEmpty ?? true)) {
+      if ((userRoll?.isEmpty ?? true) ||
+          (userName?.isEmpty ?? true) ||
+          (userPhone?.isEmpty ?? true)) {
         final data = await authservice.fetchUserInfo();
         if (data != null) {
-          
           userName = data['name'] ?? '';
-          
         }
       }
 
@@ -65,30 +59,32 @@ class _DashboardState extends State<Dashboard> {
       });
     }
   }
-  
 
- 
-
-
- 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
           width: ScreenWidth(context),
+          height: ScreenHeight(context),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("lib/assets/images/UPF.jpg"), // Replace with your background image path
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Container(
+          width: ScreenWidth(context),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Color.fromRGBO(39, 93, 173, 1),
-                Color.fromRGBO(18, 18, 18, 1),
+                Color.fromRGBO(18, 18, 18, 0.8),
               ],
               begin: Alignment.topCenter,
               end: Alignment(0, -0.5),
             ),
-          ),
-          child: const Column(
-            children: [],
           ),
         ),
         Scaffold(
@@ -96,7 +92,7 @@ class _DashboardState extends State<Dashboard> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            title: Image.asset("lib/assets/images/logo-04.png", height: 80,),
+            title: Image.asset("lib/assets/images/logo-04.png", height: 80),
             centerTitle: true,
             leading: Builder(
               builder: (context) => IconButton(
@@ -134,28 +130,29 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.info_outline_rounded, color: Colors.white,),
-                  title: const Text("About TVC", style: TextStyle(color: Colors.white),),
+                  leading: const Icon(Icons.info_outline_rounded, color: Colors.white),
+                  title: const Text("About TVC", style: TextStyle(color: Colors.white)),
                   onTap: () {
                     Navigator.pushNamed(context, '/about');
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person_2_outlined, color: Colors.white,),
-                  title: Text("Profile", style: TextStyle(color: Colors.white),),
-                  onTap: (){Navigator.pushNamed(context, '/profile');},
-
+                  leading: Icon(Icons.person_2_outlined, color: Colors.white),
+                  title: Text("Profile", style: TextStyle(color: Colors.white)),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
                 ),
                 Spacer(),
                 ListTile(
-                  leading: Icon(Icons.logout_outlined, color: Colors.white,),
-                  title: Text("Log Out", style: TextStyle(color: Colors.white),),
-                  onTap: () async{
+                  leading: Icon(Icons.logout_outlined, color: Colors.white),
+                  title: Text("Log Out", style: TextStyle(color: Colors.white)),
+                  onTap: () async {
                     await authservice.signOut(context);
                     Hive.box('userBox').put('isLoggedIn', false);
                     Fluttertoast.showToast(msg: Hive.box('userBox').get('isLoggedIn').toString());
                     Navigator.pushReplacementNamed(context, '/welcome');
-                    },
+                  },
                 )
               ],
             ),
@@ -252,8 +249,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.only(
-                                bottom: 0.01 * ScreenHeight(context)),
+                            padding: EdgeInsets.only(bottom: 0.01 * ScreenHeight(context)),
                             child: const Column(
                               children: [
                                 Spacer(),
@@ -269,8 +265,7 @@ class _DashboardState extends State<Dashboard> {
                                       style: TextStyle(
                                           fontSize: 32,
                                           fontFamily: "Inter",
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
+                                          color: Color.fromARGB(255, 255, 255, 255),
                                           decoration: TextDecoration.none),
                                     ),
                                     Text(
@@ -314,9 +309,7 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: .02 * ScreenWidth(context),
-                                    bottom: .02 * ScreenWidth(context)),
+                                padding: EdgeInsets.only(left: .02 * ScreenWidth(context), bottom: .02 * ScreenWidth(context)),
                                 child: const Column(
                                   children: [
                                     Spacer(),
@@ -327,8 +320,7 @@ class _DashboardState extends State<Dashboard> {
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontFamily: "Inter",
-                                              color: Color.fromARGB(
-                                                  255, 255, 255, 255),
+                                              color: Color.fromARGB(255, 255, 255, 255),
                                               decoration: TextDecoration.none),
                                         ),
                                         Text(
@@ -351,7 +343,6 @@ class _DashboardState extends State<Dashboard> {
                           ),
                           GestureDetector(
                             onTap: () => setState(() {
-                              
                               launchUrl(Uri.parse("https://online.fliphtml5.com/kkeiv/nmar/#p=1"), mode: LaunchMode.externalApplication);
                             }),
                             child: Container(
@@ -364,8 +355,7 @@ class _DashboardState extends State<Dashboard> {
                                     ),
                                     fit: BoxFit.fill,
                                     colorFilter: ColorFilter.mode(
-                                      Colors.black.withOpacity(
-                                          0.8), // Adjust opacity (0.0 - 1.0)
+                                      Colors.black.withOpacity(0.8), // Adjust opacity (0.0 - 1.0)
                                       BlendMode.darken,
                                     )),
                                 borderRadius: BorderRadius.circular(12),
@@ -383,9 +373,7 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: .02 * ScreenWidth(context),
-                                    top: .015 * ScreenWidth(context)),
+                                padding: EdgeInsets.only(left: .02 * ScreenWidth(context), top: .015 * ScreenWidth(context)),
                                 child: const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -396,8 +384,7 @@ class _DashboardState extends State<Dashboard> {
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontFamily: "Inter",
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
+                                          color: Color.fromARGB(255, 255, 255, 255),
                                           decoration: TextDecoration.none),
                                     ),
                                     Text(
@@ -444,24 +431,15 @@ class _DashboardState extends State<Dashboard> {
                             color: Color(0xFF275DAD),
                             decoration: TextDecoration.none),
                       ),
-            
-                      SizedBox(height: 0.015*ScreenHeight(context),),
-                      
-                      
-            
+                      SizedBox(height: 0.015 * ScreenHeight(context)),
                     ],
-                    
                   ),
-                  
-            
                 ),
-                SizedBox(height: 0.015*ScreenHeight(context),),
+                SizedBox(height: 0.015 * ScreenHeight(context)),
                 HorizontalListNormal(items: speakers)
               ],
-              
             ),
           ),
-          
         ),
       ],
     );
