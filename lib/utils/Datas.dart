@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+
 
 double ScreenWidth(BuildContext context) {
   return MediaQuery.of(context).size.width;
@@ -14,6 +17,12 @@ TextStyle basic() {
       color: Colors.white,
       fontFamily: 'Inter',
       decoration: TextDecoration.none);
+}
+
+String getTodaysDate(){
+  DateTime now = DateTime.now();
+  DateFormat formatter = DateFormat('dd MMM');
+  return formatter.format(now);
 }
 
 TextStyle heading() {
@@ -37,7 +46,7 @@ Text BasicText(String text) {
 }
 
 List<Map<String, String>> speakers = [
-  {"image": "lib/assets/images/tanu.png", "title": "Ashneer Grover"},
+  {"image": "lib/assets/images/ashneer.png", "title": "Ashneer Grover"},
   {"image": "lib/assets/images/tanu.png", "title": "Tanu Jain"},
   {"image": "lib/assets/images/tanu.png", "title": "Himesh Madaan"},
   {"image": "lib/assets/images/tanu.png", "title": "Prateek Mittal"},
@@ -51,9 +60,9 @@ List<Map<String, String>> events = [
   
  
   {
-    "image": "lib/assets/images/internship_fair.png",
+    "image": "lib/assets/images/opening.png",
     "title": "Opening Ceremony",
-    "date": "19 Feb",
+    "date": '20 Feb',
     "time": "5:30 P.M",
     "venue":"Main Audi",
     "route" : "/openingcer"
@@ -61,7 +70,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Internship Fair",
-    "date": "19 Feb",
+    "date": '20 Feb',
     "time": "10:00 A.M",
     "venue":"SBOP Lawns",
     "route" : "/internshipfair"
@@ -69,7 +78,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Biz Conclave",
-    "date": "19 Feb",
+    "date": getTodaysDate(),
     "time": "11:00 A.M",
     "venue":"Main Audi",
     "route" : "/bizconclave"
@@ -77,7 +86,7 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Youtube Connect",
-    "date": "19 Feb",
+    "date": getTodaysDate(),
     "time": "12:30 P.M",
     "venue":"Main Audi",
     "route" : "/youtubeconnect"
@@ -85,14 +94,14 @@ List<Map<String, String>> events = [
   {
     "image": "lib/assets/images/internship_fair.png",
     "title": "Networking Carnival",
-    "date": "19 Feb",
+    "date": getTodaysDate(),
     "time": "4:00 P.M",
     "venue":"SBOP Lawns",
     "route" : "/networking"
   },
   {
     "image": "lib/assets/images/internship_fair.png",
-    "title": "Unwind",
+    "title": getTodaysDate(),
     "date": "19 Feb",
     "time": "5:00 P.M",
     "venue":"OAT",

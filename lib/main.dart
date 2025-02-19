@@ -9,6 +9,7 @@ import 'package:e_summit25/pages/OTP_page.dart';
 import 'package:e_summit25/off%20pages/OTP_reauth.dart';
 import 'package:e_summit25/pages/account_page.dart';
 import 'package:e_summit25/pages/dashboard.dart';
+import 'package:e_summit25/pages/map.dart';
 import 'package:e_summit25/pages/opening_ceremony.dart';
 import 'package:e_summit25/pages/unwind.dart';
 import 'package:e_summit25/pages/login_page.dart';
@@ -128,6 +129,7 @@ class _MyAppState extends State<MyApp> {
         '/networking' : (context) => Networkingcarnival(),
         '/bizconclave' : (context) => Bizconclave(),
         '/about' : (context) => AboutUs(),
+        '/map' : (context) => MyMap(),
       },
       debugShowCheckedModeBanner: false,
       // home:  welcome_page()

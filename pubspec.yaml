@@ -81,6 +81,9 @@ flutter:
     - lib/assets/images/bg.jpg
     - lib/assets/images/esummit_app.png
     - lib/assets/images/UPF.jpg
+    - lib/assets/images/map.png
+    - lib/assets/images/opening.png
+    - lib/assets/images/ashneer.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

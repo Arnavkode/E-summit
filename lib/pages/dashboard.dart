@@ -228,7 +228,7 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          //navig
+                          Navigator.pushNamed(context, '/map');
                         },
                         child: Container(
                           width: 0.4 * ScreenWidth(context),

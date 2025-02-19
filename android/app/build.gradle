@@ -35,8 +35,19 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.debug
+            // Enables code shrinking, obfuscation, and optimization for release builds
+            minifyEnabled true
+            // Enables resource shrinking, which further reduces the size of your APK
+            shrinkResources true
+            // ProGuard configuration files
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+dependencies{
+    implementation 'com.google.android.play:core:1.10.3'
+    implementation 'com.google.android.play:core-ktx:1.8.1'
 }
 
 flutter {
