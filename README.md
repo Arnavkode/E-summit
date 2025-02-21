@@ -1,6 +1,6 @@
 # E-SUMMIT'25 Official App  
 
-This is the official (unreleased) app for **E-SUMMIT'25**, the flagship entrepreneurial festival of **Thapar Institute of Engineering & Technology (TIET)** and **The Venture Capitalists (TVC)**—recognized as North India's premier entrepreneurship summit.  
+This is the official (unreleased) app for **E-SUMMIT'25**, the flagship entrepreneurial festival of **Thapar Institute of Engineering & Technology (TIET)** and **Thapar Venture Club (TVC)**—recognized as North India's premier entrepreneurship summit.  
 
 ## 🚀 Features  
 
